@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eczanesepeti2.Data;
 
 namespace eczanesepeti2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220821184351_Tablolar1")]
+    partial class Tablolar1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,29 +221,6 @@ namespace eczanesepeti2.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("eczanesepeti2.Models.Eczane", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("EczaneAd")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IlceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TelNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IlceId");
-
-                    b.ToTable("Eczane");
-                });
-
             modelBuilder.Entity("eczanesepeti2.Models.Ilac", b =>
                 {
                     b.Property<int>("Id")
@@ -269,46 +248,6 @@ namespace eczanesepeti2.Data.Migrations
                     b.HasIndex("KategoriId");
 
                     b.ToTable("Ilac");
-                });
-
-            modelBuilder.Entity("eczanesepeti2.Models.IlacEczane", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EczaneId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IlacId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Sira")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EczaneId");
-
-                    b.HasIndex("IlacId");
-
-                    b.ToTable("IlacEczane");
-                });
-
-            modelBuilder.Entity("eczanesepeti2.Models.Ilce", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("IlceAd")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Ilce");
                 });
 
             modelBuilder.Entity("eczanesepeti2.Models.Kategori", b =>
@@ -377,17 +316,6 @@ namespace eczanesepeti2.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("eczanesepeti2.Models.Eczane", b =>
-                {
-                    b.HasOne("eczanesepeti2.Models.Ilce", "Ilce")
-                        .WithMany()
-                        .HasForeignKey("IlceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ilce");
-                });
-
             modelBuilder.Entity("eczanesepeti2.Models.Ilac", b =>
                 {
                     b.HasOne("eczanesepeti2.Models.Kategori", "Kategori")
@@ -397,25 +325,6 @@ namespace eczanesepeti2.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Kategori");
-                });
-
-            modelBuilder.Entity("eczanesepeti2.Models.IlacEczane", b =>
-                {
-                    b.HasOne("eczanesepeti2.Models.Eczane", "Eczane")
-                        .WithMany()
-                        .HasForeignKey("EczaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eczanesepeti2.Models.Ilac", "Ilac")
-                        .WithMany()
-                        .HasForeignKey("IlacId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Eczane");
-
-                    b.Navigation("Ilac");
                 });
 #pragma warning restore 612, 618
         }

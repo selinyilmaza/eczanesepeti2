@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using eczanesepeti2.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,12 @@ namespace eczanesepeti2.Data
             : base(options)
         {
         }
+        public DbSet<Ilac> Ilac { get; set; }
+        public DbSet<Kategori> Kategori { get; set; }
+        public DbSet<Eczane> Eczane { get; set; }
+        public DbSet<Ilce> Ilce { get; set; }
+        public DbSet<IlacEczane> IlacEczane { get; set; }
+
+
     }
 }
