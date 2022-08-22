@@ -18,6 +18,8 @@ namespace eczanesepeti2.Data
         public DbSet<Eczane> Eczane { get; set; }
         public DbSet<Ilce> Ilce { get; set; }
         public DbSet<IlacEczane> IlacEczane { get; set; }
+        public DbSet<Sepet> Sepet { get; set; }
+
 
 
     }

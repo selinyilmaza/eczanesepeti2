@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace eczanesepeti2.Models
 {
-    public class Ilce
+    public class Sepet
     {
         public int Id { get; set; }
-        public string IlceAd { get; set; }
+        public int IlacId { get; set; }
+        [ForeignKey("IlacId")]
+        public double Ucret { get; set; }
+        public Ilac Ilac { get; set; }
 
-        public int IlId { get; set; }
-        [ForeignKey("IlId")]
-        public Il Il { get; set; }
     }
 }
