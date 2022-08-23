@@ -48,7 +48,7 @@ namespace eczanesepeti2.Controllers
         // GET: Sepet/Create
         public IActionResult Create()
         {
-            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "Id");
+            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "IlacAd");
             return View();
         }
 

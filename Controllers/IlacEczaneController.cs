@@ -10,23 +10,23 @@ using eczanesepeti2.Models;
 
 namespace eczanesepeti2.Controllers
 {
-    public class EczaneController : Controller
+    public class IlacEczaneController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public EczaneController(ApplicationDbContext context)
+        public IlacEczaneController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Eczane
+        // GET: IlacEczane
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Eczane.Include(e => e.Ilce);
+            var applicationDbContext = _context.IlacEczane.Include(i => i.Eczane).Include(i => i.Ilac);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Eczane/Details/5
+        // GET: IlacEczane/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +34,45 @@ namespace eczanesepeti2.Controllers
                 return NotFound();
             }
 
-            var eczane = await _context.Eczane
-                .Include(e => e.Ilce)
+            var ilacEczane = await _context.IlacEczane
+                .Include(i => i.Eczane)
+                .Include(i => i.Ilac)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (eczane == null)
+            if (ilacEczane == null)
             {
                 return NotFound();
             }
 
-            return View(eczane);
+            return View(ilacEczane);
         }
 
-        // GET: Eczane/Create
+        // GET: IlacEczane/Create
         public IActionResult Create()
         {
-            ViewData["IlceId"] = new SelectList(_context.Ilce, "Id", "IlceAd");
+            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "EczaneAd");
+            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "IlacAd");
             return View();
         }
 
-        // POST: Eczane/Create
+        // POST: IlacEczane/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EczaneAd,TelNo,IlceId")] Eczane eczane)
+        public async Task<IActionResult> Create([Bind("Id,IlacId,EczaneId,Sira")] IlacEczane ilacEczane)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(eczane);
+                _context.Add(ilacEczane);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IlceId"] = new SelectList(_context.Ilce, "Id", "Id", eczane.IlceId);
-            return View(eczane);
+            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "Id", ilacEczane.EczaneId);
+            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "Id", ilacEczane.IlacId);
+            return View(ilacEczane);
         }
 
-        // GET: Eczane/Edit/5
+        // GET: IlacEczane/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +80,24 @@ namespace eczanesepeti2.Controllers
                 return NotFound();
             }
 
-            var eczane = await _context.Eczane.FindAsync(id);
-            if (eczane == null)
+            var ilacEczane = await _context.IlacEczane.FindAsync(id);
+            if (ilacEczane == null)
             {
                 return NotFound();
             }
-            ViewData["IlceId"] = new SelectList(_context.Ilce, "Id", "Id", eczane.IlceId);
-            return View(eczane);
+            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "Id", ilacEczane.EczaneId);
+            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "Id", ilacEczane.IlacId);
+            return View(ilacEczane);
         }
 
-        // POST: Eczane/Edit/5
+        // POST: IlacEczane/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EczaneAd,TelNo,IlceId")] Eczane eczane)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IlacId,EczaneId,Sira")] IlacEczane ilacEczane)
         {
-            if (id != eczane.Id)
+            if (id != ilacEczane.Id)
             {
                 return NotFound();
             }
@@ -102,12 +106,12 @@ namespace eczanesepeti2.Controllers
             {
                 try
                 {
-                    _context.Update(eczane);
+                    _context.Update(ilacEczane);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EczaneExists(eczane.Id))
+                    if (!IlacEczaneExists(ilacEczane.Id))
                     {
                         return NotFound();
                     }
@@ -118,11 +122,12 @@ namespace eczanesepeti2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IlceId"] = new SelectList(_context.Ilce, "Id", "Id", eczane.IlceId);
-            return View(eczane);
+            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "Id", ilacEczane.EczaneId);
+            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "Id", ilacEczane.IlacId);
+            return View(ilacEczane);
         }
 
-        // GET: Eczane/Delete/5
+        // GET: IlacEczane/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +135,32 @@ namespace eczanesepeti2.Controllers
                 return NotFound();
             }
 
-            var eczane = await _context.Eczane
-                .Include(e => e.Ilce)
+            var ilacEczane = await _context.IlacEczane
+                .Include(i => i.Eczane)
+                .Include(i => i.Ilac)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (eczane == null)
+            if (ilacEczane == null)
             {
                 return NotFound();
             }
 
-            return View(eczane);
+            return View(ilacEczane);
         }
 
-        // POST: Eczane/Delete/5
+        // POST: IlacEczane/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var eczane = await _context.Eczane.FindAsync(id);
-            _context.Eczane.Remove(eczane);
+            var ilacEczane = await _context.IlacEczane.FindAsync(id);
+            _context.IlacEczane.Remove(ilacEczane);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EczaneExists(int id)
+        private bool IlacEczaneExists(int id)
         {
-            return _context.Eczane.Any(e => e.Id == id);
+            return _context.IlacEczane.Any(e => e.Id == id);
         }
     }
 }

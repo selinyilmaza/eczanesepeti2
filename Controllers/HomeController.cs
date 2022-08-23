@@ -1,5 +1,7 @@
-﻿using eczanesepeti2.Models;
+﻿using eczanesepeti2.Data;
+using eczanesepeti2.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,16 +13,20 @@ namespace eczanesepeti2.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
+        
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var db = _context.Ilac
+                .Include(f => f.Kategori);
+
+            return View(db.ToList());
         }
 
         public IActionResult Privacy()
