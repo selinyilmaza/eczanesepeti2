@@ -3,6 +3,7 @@ using eczanesepeti2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -16,15 +17,18 @@ namespace eczanesepeti2.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        
+        private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(ApplicationDbContext context)
+
+        public HomeController(ApplicationDbContext context, IStringLocalizer<HomeController> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public IActionResult Index()
         {
+            var say_Hello_value = _localizer["Say_Hello"];
             var db = _context.Ilac
                 .Include(f => f.Kategori);
 
