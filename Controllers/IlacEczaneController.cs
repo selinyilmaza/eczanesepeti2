@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eczanesepeti2.Data;
 using eczanesepeti2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eczanesepeti2.Controllers
 {
+    [Authorize]
     public class IlacEczaneController : Controller
     {
         private readonly ApplicationDbContext _context;

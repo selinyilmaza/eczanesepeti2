@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Kisi> SignInManager
+@inject UserManager<Kisi> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,77 +10,86 @@
     <title>@ViewData["Title"] - eczanesepeti2</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    
+
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="~/css/templatemo-style.css">
+
+    @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">eczanesepeti2</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>*@
 </head>
 <body>
     <header>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">eczanesepeti2</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                        <partial name="_LoginPartial" />
-                    </div>
-                </div>
-            </nav>*@
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <i class="fas fa-film mr-2"></i>
-                    Eczane Sepeti
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="fas fa-film mr-2"></i>
+                EczaneSepeti
                 </a>
-                <button class=" navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
+
+
+                <partial name="_LoginPartial" />
+
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-4" asp-area="" asp-controller="gosteri" asp-action="Index">Ürünler</a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link nav-link-1 active" aria-current="page" href="index.html">Anasayfa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-4" asp-area="" asp-controller="Il" asp-action="Index">home</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link nav-link-4" asp-area="" asp-controller="gosteri" asp-action="Index">Ürünler</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-4" asp-area="" asp-controller="Kategori" asp-action="Index">Hakkımızda</a>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin
+                                </button>
 
-                        </li>
-                        <li class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                                <a class="dropdown-item" asp-area="" asp-controller="Kategori" asp-action="Index">Kategoriler</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Ilac" asp-action="Index">İlaçlar</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-area="" asp-controller="Il" asp-action="Index">İller</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Ilce" asp-action="Index">İlceler</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Eczane" asp-action="Index">Eczaneler</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="IlacEczane" asp-action="Index">Ilaclar ve Eczaneler</a>
-
+                                    <a class="dropdown-item" asp-area="" asp-controller="Kategori" asp-action="Index">Kategoriler</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Ilac" asp-action="Index">İlaçlar</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Il" asp-action="Index">İller</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Ilce" asp-action="Index">İlceler</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Eczane" asp-action="Index">Eczaneler</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="IlacEczane" asp-action="Index">Ilaclar ve Eczaneler</a>
 
 
-                            </div>
-                        </li>
 
-                    </ul>
+                                </div>
+                                
+                            </li>
+                        }
+                        </ul>
+
                 </div>
             </div>
         </nav>
@@ -89,7 +102,7 @@
 
     <footer class="border-top footer text-bg-primary navbar-dark text-bg-dark text-light">
         <div class="container">
-            &copy; 2022 - eczanesepeti2 
+            &copy; 2022 - eczanesepeti2
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
