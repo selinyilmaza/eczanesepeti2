@@ -67,8 +67,8 @@ namespace eczanesepeti2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "Id", ilacEczane.EczaneId);
-            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "Id", ilacEczane.IlacId);
+            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "EczaneAd", ilacEczane.EczaneId);
+            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "IlacAd", ilacEczane.IlacId);
             return View(ilacEczane);
         }
 
@@ -85,8 +85,8 @@ namespace eczanesepeti2.Controllers
             {
                 return NotFound();
             }
-            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "Id", ilacEczane.EczaneId);
-            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "Id", ilacEczane.IlacId);
+            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "EczaneAd", ilacEczane.EczaneId);
+            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "IlacAd", ilacEczane.IlacId);
             return View(ilacEczane);
         }
 
@@ -122,8 +122,8 @@ namespace eczanesepeti2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "Id", ilacEczane.EczaneId);
-            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "Id", ilacEczane.IlacId);
+            ViewData["EczaneId"] = new SelectList(_context.Eczane, "Id", "EczaneAd", ilacEczane.EczaneId);
+            ViewData["IlacId"] = new SelectList(_context.Ilac, "Id", "IlacAd", ilacEczane.IlacId);
             return View(ilacEczane);
         }
 

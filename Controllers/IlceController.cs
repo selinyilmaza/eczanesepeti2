@@ -48,7 +48,7 @@ namespace eczanesepeti2.Controllers
         // GET: Ilce/Create
         public IActionResult Create()
         {
-            ViewData["IlId"] = new SelectList(_context.Il, "Id", "Id");
+            ViewData["IlId"] = new SelectList(_context.Il, "Id", "Ad");
             return View();
         }
 
